@@ -1,0 +1,418 @@
+Question 1
+-------------------
+main()
+{
+	/*Assume array begins at location 1002*/
+	int a[3][4]={
+			1,2,3,4,
+			5,6,7,8,
+			9,10,11,12
+		       };
+	printf(“\n%u %u %u”, a[0]+1, *(a[0]+1), *(*(a+0)+1)); 
+}
+
+int = 2 bytes
+a[0][0]	a[0][1]	a[0][2]	a[0][3]	a[1][0]	a[1][1]	a[1][2]	a[1][3]	a[2][0]	a[2][1]	a[2][2]	a[2][3]
+1	2	3	4	5	6	7	8	9	10	11	12
+1002	1004	1006	1008	1010	1012	1014	1016	1018	1020	1022	1024
+
+a[i] = i[a] = *(a+i) = *(i+a)
+
+a = Base Address of 2-D Array (Row)
+*a = Base Address of 1-D Array inside 2-D Array (Column)
+**a = Value at Base Address of 1-D Array inside 2-D Array (Value)
+
+a[0] + 1 => *(a+0) + 1
+                  => *a + 1
+                  => 1002 + 1 = 1004 = 1-D Address
+
+*(a[0] + 1) = *(1004) = 2
+
+*(*(a+0)+1) = *(1004) = 2
+
+Final Answer: 1004  2   2
+----------------------------------------------------------------------------------------------------------------------------------
+int a = 10, *p;
+p = &a;
+
+	variable	a		p
+	value	10		1000
+	address	1000		2000
+
+*p = *(&a) => a = 10
+&a = 1000
+&p = 2000
+p = 1000
+*(&a) = a = 10
+
+int a = 10, *p, **q;
+p = & a;
+q = &p;
+
+	variable	a	p	q
+	value	10	1000	2000
+	address	1000	2000	3000
+
+a = 10
+&a = 1000
+p = 1000
+&p = 2000
+q = 2000
+&q = 3000
+*p = *(&a) = a = 10
+**q = **(&p) = *p = *(&a) = a = 10
+
+Question 2
+--------------------
+
+main()
+{
+	int a[]={2,4,6,8,10};
+	int i;
+	for(i=0;i<=4;i++)
+	{
+		*(a+i) = i[a] + a[i];
+		printf("%d\t",*(i+a));
+	}
+	
+}
+int = 2 bytes (16-bits compiler)
+a[0]	a[1]	a[2]	a[3]	a[4]
+2	4	6	8	10
+1000	1002	1004	1006	1008
+
+a[i] = i[a] = *(a+i) = *(i+a)
+	
+
+Final Answer: 4 8 12 16 20
+
+Question 3
+--------------------
+
+void fun(int**); // Function Prototype
+main()
+{
+      int a[3][4]={
+		1,2,3,4,
+		4,3,2,8,
+		7,8,9,0
+	         };
+      int *ptr;
+      ptr=&a[0][0];
+      fun(&ptr);
+}
+void fun(int **p)
+{
+       printf(“\n%d”,**p);
+}
+
+ptr = &a[0][0];
+
+fun(&ptr);
+
+**p = **(&ptr) = *ptr = *(&a[0][0]) = a[0][0] = 1
+
+Function Prototype
+---------------------------------
+1. What is the name of the function?	(fun)
+2. What is the return type of the function? (void)
+3. What is/are the arguments of the function? (int**)
+
+	variable 	a	p
+		10	1000
+		1000	1002
+
+Question 4
+------------------
+main()
+{
+	/*Assume array begins at location 1002*/
+	int a[2][3][4]={
+			{ 1,2,3,4,
+			  5,6,7,8,
+			  9,10,11,12
+			},
+			{
+			  2,1,4,7,
+			  6,7,8,9,
+			  0,0,0,0
+			} 
+		       };
+	printf(“\n%u %u %u %d”, a, *a, **a, ***a); 
+}
+
+1-D Arrays
+------------------------
+a = Base Address of 1-D Array
+*a = Value at base addres of 1-D Array
+a[i] = i[a] = *(a+i) = *(i+a)
+
+2-D Arrays
+-----------------
+a = Base Address of 2-D Array (Row)
+*a = Base Address of 1-D Array inside 2- D Array (Column)
+**a = Value at base address of 1-D Array inside 2-D Array (Value)
+a[i][j] = *(*(a+i)+j)
+
+3-D Arrays
+-----------------
+a = Base Address of 3-D Array (Page)
+*a = Base Address of 2-D Array inside 3-D Array (Row)
+**a = Base Address of 1-D of 2-D Array inside 3-D Array (Column)
+***a = Value at Base Address of 1-D of 2-D Array inside 3-D Array (Value)
+
+a[i][j][k] = *(*(*(a+i)+j)+k)
+
+Final Answer: 1002	    1002	1002      1
+
+Question 5
+--------------------
+main()
+{
+	int a[]={2,4,6,8,10};
+	int i , b=5;
+	for(i=0;i<5;i++)
+	{
+	      f(a[i],&b);
+	      printf(“\n%d %d”, a[i],b);
+	}
+}
+f(int x, int *y)
+{
+	x=*(y)+ = 2;     // x = *y = *y + 2;       // a += b;    a = a + b;
+}
+
+int = 2 bytes
+a[0]	a[1]	a[2]	a[3]	a[4]
+2	4	6	8	10
+1000	1002	1004	1006	1008
+
+i = 0; 0< 5
+	x = 2, y = &b , *y = 5
+		*y = 7
+
+i = 1; 1 < 5
+	x = 4, *y = 7
+		*y = *y  + 2 = 7 + 2 = 9
+Final Answer:
+2	7
+4	9
+6	11
+8	13
+10	15
+
+
+Question 6
+--------------------
+main()
+{
+	int a[5]={2,3,4,5,6};
+	int i;
+	change(a);
+	for(i=4;i>=0;i--)
+		printf(“%d”,a[i]);	
+}
+change(int *b)
+{
+	int i;
+	for(i=0;i<=4;i++)
+	{
+		*b= *b + 1;
+		b++;
+	}
+}
+
+a[0]	a[1]	a[2]	a[3]	a[4]
+2	3	4	5	6
+1000	1002	1004	1006	1008
+
+3	4	5	6	7
+
+change(a) //base address of 1-d array (Call by address)
+
+b = 1000
+*b = 2
+
+i = 0; 0<= 4
+	*b = 2 + 1 = 3
+	b++ = 1000 + 1 = 1002
+i = 1; 1<= 4
+	*b = 3 + 1 = 4
+	b++ = 1002 + 1 = 1004
+i=2; 2<=4
+	*b = 4 + 1 = 5
+	b++ = 1004 + 1 = 1006
+i = 3; 3<=4
+	*b = 5 + 1 = 6
+	b++ = 1006 + 1 = 1008
+i = 4; 4<=4
+	*b = 6 + 1= 7
+	b++ = 1008 + 1 = 1010
+i=5; 5<=4 X
+-----------------------
+----------------------
+i = 5; 5<=4
+
+Final Answer: 7 6 5 4 3
+
+Question 7
+--------------------
+main()
+{
+    int arr[]={0,1,2,3,4};
+    int *ptr;
+    for(ptr=&arr[0]; ptr<=&arr[4];ptr++)
+	printf(“%d”,*ptr);
+}
+
+arr[0]	arr[1]	arr[2]	arr[3]	arr[4]
+0	1	2	3	4
+1000	1002	1004	1006	1008
+
+ptr = &arr[0] = 1000
+
+1000 <= 1008	*(1000) = 0
+1002 <= 1008	*(1002) = 1
+1004 <= 1008	*(1004) = 2
+1006 <= 1008	*(1006) = 3
+1008 <= 1008	*(1008) = 4
+1010 <= 1008	X
+
+Final Answer: 01234
+
+
+
+Question 8
+---------------------
+main()
+{
+     int arr[]={0,1,2,3,4};
+     int i,*ptr;
+     for(ptr=&arr[0] , i=0;i<=4;i++)
+	printf(“%d”,ptr[i]); // printf("%u", ptr+i);
+}
+
+
+arr[0]	arr[1]	arr[2]	arr[3]	arr[4]
+0	1	2	3	4
+1000	1002	1004	1006	1008
+
+ptr = &arr[0] = 1000
+
+i = 0; 0<=4
+ptr[i] = *(ptr+i) = *(1000+0) = *(1000) = 0
+i = 1; 1<=4
+	*(1000+1) = *(1002) = 1
+i=2; 2<=4
+	*(1000+2) = *(1004) = 2
+i=3; 3<=4
+	*(1000+3) = *(1006) = 3
+i = 4; 4<=4
+	*(1000+4) = *(1008) = 4
+i=5; 5<=4	X
+
+Final Answer: 01234
+
+Question 9
+--------------------
+main()
+{
+      int arr[]={0,1,2,3,4};
+      int *ptr;
+      for(ptr=arr+4;ptr>=arr;ptr--)
+	printf(“%d”,arr[ptr-arr]);
+}
+
+int = 2 bytes (16-bits)
+arr[0]	arr[1]	arr[2]	arr[3]	arr[4]
+0	1	2	3	4
+1000	1002	1004	1006	1008
+
+ptr=arr+4 = 1000 + 4 = 1008
+
+1008 >= 1000
+	a[i] = i[a] = *(a+i) = *(i+a)
+	arr[ptr-arr] = *(arr+ptr-arr) = *ptr = *(1008) = 4
+1006 >= 1000
+	*(1006) = 3
+1004 >= 1000
+	*(1004) = 2
+1002 >= 1000
+	*(1002) = 1
+1000 > = 1000
+	*(1000) = 0
+998 >= 1000 X
+
+Final Answer: 43210
+
+
+Question 10
+----------------------
+main()
+{	int n[3][3]={	2,4,3,
+			6,8,5,
+			3,5,1
+		      };
+	int i, j;
+	for(i=2;i>=0;i--)
+	{     for(j=2;j>=0;j--)
+	     printf(“\n%d%d”, n[i][j], *(*(n+i)+j));
+	}
+}
+
+int = 2 bytes = 16-bits
+a[0][0]	a[0][1]	a[0][2]	a[1][0]	a[1][1]	a[1][2]	a[2][0]	a[2][1]	a[2][2]
+2	4	3	6	8	5	3	5	1
+1000	1002	1004	1006	1008	1010	1012	1014	1016
+
+n[i][j] = *(*(n+i)+j)
+
+
+1	1
+5	5
+3	3
+5	5
+8	8
+6	6
+3	3
+4	4
+2	2
+
+Question 11
+----------------------
+main()
+{
+	int n[3][3]={	2,4,3,
+			6,8,5,
+			3,5,1
+		      };
+//Assume that array begins at address 404
+printf(“\n%u %u %d”,n, n[2], n[2][2]);
+}
+
+int = 2 bytes
+n[0][0]	n[0][1]	n[0][2]	n[1][0]	n[1][1]	n[1][2]	n[2][0]	n[2][1]	n[2][2]
+2	4	3	6	8	5	3	5	1
+404	406	408	410	412	414	416	418	420	424
+
+*n + 1	= 406
+*n + 2 	= 408
+*n + 3 	= 410
+
+n = 404
+n+1 = 410
+n+2 = 416
+n+3 = 424
+
+n = base address of 2-d array = 404
+
+n = Address of 2-D Array
+*n = Address of 1-D Array inside 2-D Array
+**n = Value at base address of 1-D Array inside 2-D Array
+
+n[2] = *(n+2) = *(404 + 2)  = *(416) = 416
+
+n[2][2] = *(*(n+2)+2) = 1
+
+
+Final Answer: 404	416       1

@@ -1,0 +1,147 @@
+1. What will be the output of the following program if the array begins at 65472 and each integer occupies 2 bytes?
+#include<stdio.h>
+void main()
+{
+	int a[3][4]={
+			1,2,3,4,
+			4,3,2,1,
+			7,8,9,0
+		   };
+		   printf(“\n%u %u”,a+1,&a+1);
+}
+(a)	65480 65496
+(b)	65480 65492
+(c)	65482 65496
+(d)	65472 65496
+Correct Answer: 
+
+2. What will happen if in a C program you assign a value to an array element whose subscript exceeds the size of array?
+(a) The element will be set to 0.
+(b) Nothing, it’s done all the time.
+(c) The compiler would report an error.
+(d) The program may crash if some important data gets overwritten.
+(e) The array size would appropriately grow.
+Correct Answer: 
+
+3. Which of the following is the correct output for the program given below?
+#include<stdio.h>
+void main()
+{
+	int a[5]={5,1,15,20,25};
+	int i,j,m;
+	i=++a[1];
+	j=a[1]++;
+	m=a[i++];
+	printf(“%d %d %d”,i,j,m);
+}
+(a)	2 1 15
+(b)	1 2 5
+(c)	3 2 15
+(d)	2 3 20
+(e)	3 1 15
+Correct Answer: 
+
+4. Which of the following is the correct output for the program given below?
+#include<stdio.h>
+void main()
+{
+	int i;
+	char a[]=”\0”;
+	if(printf(“%s\n”,a))
+		printf(“The string is empty”);
+	else
+		printf(“The string is not empty”);
+}
+(a)	The string is empty
+(b)	The string is not empty
+(c)	No output
+(d)	0
+Correct Answer: 
+
+5. Which of the following is the correct output for the program given below?
+#include<stdio.h>
+void main()
+{
+	char p[]=”%d\n”;
+	p[1]=’c’;
+	printf(p,65);
+}
+(a)	65
+(b)	a
+(c)	c
+(d)	A
+(e)	Error
+Correct Answer: 
+
+6. Which of the following is the correct for the program given below?
+#include<stdio.h>
+void main()
+{
+	printf(5 + “Fascimile”);
+}
+(a)	Error
+(b)	Fascimile
+(c)	mile
+(d)	None of the above
+Correct Answer:
+
+7. Which of the following is the correct output for the program given below?
+#include<stdio.h>
+void main()
+{
+	char str1[]=”Hello”;
+	char str2[]=”Hello”;
+	if(str1==str2)
+		printf(“\nEqual”);
+	else
+		printf(“\nUnequal”);
+}
+(a)	Equal
+(b)	Unequal
+(c)	Error
+(d)	None of the above
+Correct Answer:
+
+8. Which of the following is the correct output for the program given below?
+#include<stdio.h>
+void main()
+{
+printf(“\n%d%d%d”,sizeof(3.0f),sizeof(“3”),sizeof(3.0));
+}
+(a)	8 1 4
+(b)	4 2 8
+(c)	4 2 4
+(d)	10 3 4
+Correct Answer:
+
+9. Which of the following is the correct output for the program given below?
+#include<stdio.h>
+void main()
+{
+	int arr[5],i=-1,z;
+	while(i<5)
+		arr[i]=++i;
+	for(i=0;i<5;i++)
+		printf(“%d”,arr[i]);
+}
+(a) 1 2 3 4 5
+(b) -1 0 1 2 3 4
+(c) 0 1 2 3 4
+(d) 0 -1 -2 -3 -4
+Correct Answer: 
+
+10. What will be the output of the following program?
+#include<stdio.h>
+void main()
+{
+	static int a[20];
+	int i=0;
+	a[i]=i++;
+	printf(“\n%d%d%d”,a[0],a[1],i);
+}
+(a)	0 0 1
+(b)	0 1 1
+(c)	1 0 0
+(d)	1 0 1
+Correct Answer: 
+
